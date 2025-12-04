@@ -1,23 +1,29 @@
 package Ham;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import java.awt.*;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Window extends JFrame implements Runnable{
+public class App extends JFrame implements Runnable{
+
+    //App class sets up the window and adds the GameObject Panel (which handles rendering)
+    //set up window class in game files, NOT THE GAMEOBJECT CLASS
+    //load images in
 
     GameObject game = new GameObject();
-    static BufferedImage[][] playerImg = null;
-    static BufferedImage[][] zombImg = null;
     public static Input input = new Input();
 
-    public Window() {
+    public App() {
+
+        String defaultTitle = "The Hame Engine";
+        BufferedImage defaultIcon = loadImage("assets/StarIcon");
+
         //set up window:
         this.setSize(1721, 1033);
-        this.setTitle("2D Game Engine");
+        this.setTitle(defaultTitle);
+        this.setIconImage(defaultIcon);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 
@@ -25,27 +31,6 @@ public class Window extends JFrame implements Runnable{
         this.add(game);
         Thread t2 = new Thread(game);
         t2.start();
-
-        //set up player image:
-        BufferedImage img = loadImage("assets/YellowMan.png");
-        playerImg = spriteSheetSetup(img, 16, 16, 4, 4);
-        game.createObject(
-                1,
-                "p1",
-                playerImg,
-                this.getWidth()/2,
-                this.getHeight()/2,
-                300,
-                100,
-                100,
-                0,
-                0.3
-        );
-
-        //set up zomb boi:
-        img = loadImage("assets/zombSheet.png");
-        zombImg = spriteSheetSetup(img, 16, 16, 5, 4);
-
     }
 
     //Sets up sprite sheet:
@@ -73,6 +58,8 @@ public class Window extends JFrame implements Runnable{
         return img;
     }
 
+
+    //manages Game Logic:
     @Override
     public void run() {
 

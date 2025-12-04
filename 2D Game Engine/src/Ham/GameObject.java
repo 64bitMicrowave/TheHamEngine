@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import static Ham.Window.input;
+import static Ham.App.input;
 
 public class GameObject extends JPanel implements Runnable{
 
@@ -38,6 +38,8 @@ public class GameObject extends JPanel implements Runnable{
     public static int ammoCount = 5;
     public static int frame = 0;
 
+    //UI (no duh):
+    UI ui = new UI();
 
     public void createObject(int layer, String ID, Image[][] img ,int x, int y, int speed,int width, int height, int hitWidth, int hitHeight, int dir, double animSpeed) {
 
@@ -388,6 +390,44 @@ public class GameObject extends JPanel implements Runnable{
             Image[][] img = this.img.get(ind);
             int frame = animFrame.get(ind);
             g.drawImage(img[frame][dir.get(ind)], x.get(ind), y.get(ind), width.get(ind), height.get(ind), null);
+        }
+
+        //load UI:
+        ArrayList<Integer> layerUI = ui.layer;
+        ArrayList<String> idUI = ui.ID;
+        ArrayList<Image[][]> imgUI = ui.imgData;
+        ArrayList<Integer> imgX = ui.imgX;
+        ArrayList<Integer> imgY = ui.imgY;
+        ArrayList<Integer> xUI = ui.x;
+        ArrayList<Integer> yUI = ui.y;
+        ArrayList<Integer> widthUI = ui.width;
+        ArrayList<Integer> heightUI = ui.height;
+        ArrayList<Boolean> visibleUI = ui.visible;
+
+        ArrayList<Integer> layerZeroUI = new ArrayList<>();
+        ArrayList<Integer> layerOneUI = new ArrayList<>();
+
+        for (int ind = 0; ind < layerUI.size(); ind++) {
+            switch (layerUI.get(ind)) {
+                case (0):
+                    layerZeroUI.add(ind);
+                case (1):
+                    layerOneUI.add(ind);
+            }
+        }
+
+        //render UI:
+        for (int ind : layerZeroUI) {
+            if (visibleUI.get(ind)) {
+                Image[][] img = imgUI.get(ind);
+                g.drawImage(img[imgY.get(ind)][imgX.get(ind)], xUI.get(ind), yUI.get(ind), widthUI.get(ind), heightUI.get(ind), null);
+            }
+        }
+        for (int ind : layerOneUI) {
+            if (visibleUI.get(ind)) {
+                Image[][] img = imgUI.get(ind);
+                g.drawImage(img[imgY.get(ind)][imgX.get(ind)], xUI.get(ind), yUI.get(ind), widthUI.get(ind), heightUI.get(ind), null);
+            }
         }
     }
 }

@@ -8,6 +8,8 @@ public class UI extends JPanel {
     ArrayList<Integer> layer = new ArrayList<>();
     ArrayList<String> ID = new ArrayList<>();
     ArrayList<Image[][]> imgData = new ArrayList<>();
+    ArrayList<Integer> imgX = new ArrayList<>();
+    ArrayList<Integer> imgY = new ArrayList<>();
     ArrayList<Integer> x = new ArrayList<>();
     ArrayList<Integer> y = new ArrayList<>();
     ArrayList<Integer> width = new ArrayList<>();
@@ -23,6 +25,8 @@ public class UI extends JPanel {
         this.width.add(width);
         this.height.add(height);
         visible.add(false);
+        imgX.add(0);
+        imgY.add(0);
     }
 
     public void update(double dt) {
