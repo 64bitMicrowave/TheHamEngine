@@ -112,8 +112,8 @@ public class GameObject extends JPanel implements Runnable{
 
     public void update(double dt) {
         frame++;
-        System.out.println("FPS: " + 1/dt);
-        System.out.println("Object Count: " + layer.size());
+        //System.out.println("FPS: " + 1/dt);
+        //System.out.println("Object Count: " + layer.size());
 
         for (int ind = 0; ind < layer.size(); ind++) {
             moveObject(dt, ind);

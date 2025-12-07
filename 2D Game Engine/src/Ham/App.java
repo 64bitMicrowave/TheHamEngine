@@ -2,9 +2,10 @@ package Ham;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class App extends JFrame implements Runnable{
 
@@ -17,8 +18,8 @@ public class App extends JFrame implements Runnable{
 
     public App() {
 
-        String defaultTitle = "The Hame Engine";
-        BufferedImage defaultIcon = loadImage("assets/StarIcon");
+        String defaultTitle = "The Ham Engine";
+        BufferedImage defaultIcon = loadImage("/Ham/defAssets/HamIcon.png");
 
         //set up window:
         this.setSize(1721, 1033);
@@ -48,13 +49,17 @@ public class App extends JFrame implements Runnable{
     }
 
     //loads image (i don't want to type it 100 times, ok?)
-    public static BufferedImage loadImage(String path) {
+    public BufferedImage loadImage(String path){
         BufferedImage img = null;
+
         try {
-            img = ImageIO.read(new File(path));;
+            URL imageUrl = getClass().getResource(path);
+            assert imageUrl != null;
+            img = ImageIO.read(imageUrl);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return img;
     }
 
@@ -62,7 +67,6 @@ public class App extends JFrame implements Runnable{
     //manages Game Logic:
     @Override
     public void run() {
-
 
         addKeyListener(input);
 
